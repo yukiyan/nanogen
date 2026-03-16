@@ -1,0 +1,5 @@
+.mise.toml
+.claude
+.zig-cache/
+zig-out/
+dist/
