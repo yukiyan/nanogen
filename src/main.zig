@@ -8,7 +8,7 @@ const opener = @import("opener.zig");
 const log_mod = @import("log.zig");
 const timestamp_mod = @import("timestamp.zig");
 
-const version = "0.1.0";
+const version = "0.0.1";
 
 pub fn main() !void {
     run() catch |e| {
@@ -131,7 +131,7 @@ fn run() !void {
 // Tests for main module
 
 test "version string" {
-    try std.testing.expectEqualStrings("0.1.0", version);
+    try std.testing.expectEqualStrings("0.0.1", version);
 }
 
 test "imports compile" {
