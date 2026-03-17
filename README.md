@@ -82,9 +82,7 @@ nanogen -p "hello" -v
 
 # Visualize a PR diff as an infographic (bash / zsh)
 nanogen --file <(echo "Take a good look at the content below and turn it into a single infographic image in Japanese."; gh pr diff https://github.com/ghostty-org/ghostty/pull/10251)
-```
 
-```fish
 # Visualize a PR diff as an infographic (fish)
 nanogen --file (begin; echo "Take a good look at the content below and turn it into a single infographic image in Japanese."; gh pr diff https://github.com/ghostty-org/ghostty/pull/10251; end | psub)
 ```
