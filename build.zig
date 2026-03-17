@@ -38,6 +38,7 @@ pub fn build(b: *std.Build) void {
         "src/json_parse.zig",
         "src/api.zig",
         "src/client.zig",
+        "src/completions.zig",
         "src/main.zig",
     };
     for (test_modules) |mod| {

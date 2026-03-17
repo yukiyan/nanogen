@@ -46,6 +46,21 @@ fn run() !void {
         return;
     }
 
+    // Handle --completions
+    if (args.completions) |shell| {
+        const completions = @import("completions.zig");
+        completions.generate(std.fs.File.stdout().deprecatedWriter(), shell) catch |e| {
+            switch (e) {
+                error.UnsupportedShell => {
+                    try stderr.print("error: unsupported shell: {s} (supported: bash, zsh, fish)\n", .{shell});
+                    std.process.exit(1);
+                },
+                else => return e,
+            }
+        };
+        return;
+    }
+
     // Load config
     const cfg = try config_mod.load(allocator, args);
 

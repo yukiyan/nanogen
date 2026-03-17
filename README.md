@@ -55,6 +55,7 @@ Options:
       --image-size <SIZE>     Image size (default: 2K)
                               512, 1K, 2K, 4K
   -o, --output <DIR>          Output directory
+      --completions <SHELL>    Generate shell completion (bash, zsh, fish)
       --no-open               Don't auto-open generated image
   -v, --verbose               Enable debug logging
       --version               Show version
@@ -78,6 +79,19 @@ nanogen -p "sunset" -o /tmp/images --no-open
 
 # Enable debug logging
 nanogen -p "hello" -v
+```
+
+### Shell Completion
+
+```bash
+# Bash (~/.bashrc)
+eval "$(nanogen --completions bash)"
+
+# Zsh (~/.zshrc)
+eval "$(nanogen --completions zsh)"
+
+# Fish (~/.config/fish/config.fish)
+nanogen --completions fish | source
 ```
 
 ## Configuration

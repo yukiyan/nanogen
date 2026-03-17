@@ -7,6 +7,7 @@ pub const Args = struct {
     aspect_ratio: ?[]const u8 = null,
     image_size: ?[]const u8 = null,
     output: ?[]const u8 = null,
+    completions: ?[]const u8 = null,
     no_open: bool = false,
     verbose: bool = false,
     version: bool = false,
@@ -97,7 +98,7 @@ fn setFlag(args: *Args, name: []const u8) bool {
 }
 
 fn isStringFlag(name: []const u8) bool {
-    const known = [_][]const u8{ "prompt", "file", "model", "aspect-ratio", "image-size", "output" };
+    const known = [_][]const u8{ "prompt", "file", "model", "aspect-ratio", "image-size", "output", "completions" };
     for (known) |k| {
         if (std.mem.eql(u8, name, k)) return true;
     }
@@ -117,6 +118,8 @@ fn setString(args: *Args, name: []const u8, val: []const u8) void {
         args.image_size = val;
     } else if (std.mem.eql(u8, name, "output")) {
         args.output = val;
+    } else if (std.mem.eql(u8, name, "completions")) {
+        args.completions = val;
     }
 }
 
@@ -133,6 +136,7 @@ pub fn printUsage(writer: anytype) !void {
         \\      --aspect-ratio <RATIO>  Aspect ratio: 16:9, 4:3, 1:1, 9:16 (default: 16:9)
         \\      --image-size <SIZE>     Image size: 2K, 4K (default: 2K)
         \\  -o, --output <DIR>          Output directory
+        \\      --completions <SHELL>    Generate shell completion (bash, zsh, fish)
         \\      --no-open               Don't auto-open generated image
         \\  -v, --verbose               Enable debug logging
         \\      --version               Show version
@@ -210,6 +214,12 @@ test "parse missing value" {
     const argv = [_][:0]const u8{"--prompt"};
     const result = parse(&argv);
     try std.testing.expectError(ParseError.MissingValue, result);
+}
+
+test "parse completions" {
+    const argv = [_][:0]const u8{ "--completions", "fish" };
+    const args = try parse(&argv);
+    try std.testing.expectEqualStrings("fish", args.completions.?);
 }
 
 test "defaults" {
